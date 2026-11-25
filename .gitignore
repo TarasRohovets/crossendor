@@ -1,0 +1,28 @@
+# Secrets and local settings — never commit
+.env
+.env.*
+!.env.example
+appsettings.Development.json
+
+# .NET
+bin/
+obj/
+bin-*/
+*.user
+.vs/
+
+# Node / Next.js
+node_modules/
+.next/
+build/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local media storage and editor / OS files
+storage/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

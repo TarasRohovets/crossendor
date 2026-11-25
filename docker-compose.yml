@@ -1,0 +1,42 @@
+# Crossendor: everything in one command:  docker compose up -d
+# Then open http://localhost:3000. There is no sign-in, so by default it only answers on this computer.
+name: crossendor
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: crossendor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: crossendor
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crossendor -d crossendor"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build: ./api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__PostgresConnection: Host=db;Database=crossendor;Username=crossendor;Password=${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      AI__UseMockData: ${AI_USE_MOCK:-true}
+      AI__Anthropic__ApiKey: ${ANTHROPIC_API_KEY:-}
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      # 127.0.0.1 = this computer only. There is no sign-in: read "Security" in the README before changing it.
+      - "${BIND_ADDRESS:-127.0.0.1}:${WEB_PORT:-3000}:3000"
+
+volumes:
+  db:      # your shops and exports

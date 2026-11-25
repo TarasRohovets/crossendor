@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Crossendor.Api</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- Build outputs are never project content (also when building to a custom BaseOutputPath). -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;bin-*/**;obj/**;publish/**;storage/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Local settings may hold real keys: they stay on this machine and never ship in a publish. -->
+    <Content Update="appsettings.Development*.json" CopyToPublishDirectory="Never" />
+    <!-- Schema scripts run at startup (idempotent, name order). -->
+    <None Remove="migrations\**" />
+    <None Include="migrations\*.sql" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Npgsql" Version="9.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
+</Project>

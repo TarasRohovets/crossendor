@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ember arena: a red-to-orange gradient for the one action that matters, a green for "live" and "done". */
+@layer base {
+  :root {
+    --background: 30 14% 98%;
+    --foreground: 20 30% 8%;
+    --canvas: 30 10% 95%;
+    --card: 0 0% 100%;
+    --border: 30 8% 89%;
+    --input: 30 8% 85%;
+    --ring: 14 88% 52%;
+    --muted: 30 10% 95%;
+    --muted-foreground: 24 6% 40%;
+    --primary: 14 88% 52%;
+    --primary-foreground: 0 0% 100%;
+    --destructive: 352 90% 52%;
+    --volt: 152 60% 34%;
+    --ember-a: 352 90% 56%;
+    --ember-b: 28 100% 56%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 24 6% 6%;
+    --foreground: 30 30% 97%;
+    --canvas: 24 6% 4%;
+    --card: 24 5% 10%;
+    --border: 24 5% 18%;
+    --input: 24 5% 22%;
+    --ring: 16 100% 60%;
+    --muted: 24 5% 15%;
+    --muted-foreground: 24 6% 64%;
+    --primary: 16 100% 60%;
+    --primary-foreground: 20 30% 6%;
+    --destructive: 352 90% 60%;
+    --volt: 152 60% 50%;
+    --ember-a: 352 90% 60%;
+    --ember-b: 28 100% 60%;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}

@@ -1,0 +1,6 @@
+# For working on the code: run only the database in Docker and the API + web app on your machine.
+#   docker compose -f docker-compose.yml -f compose.dev.yml up -d db
+services:
+  db:
+    ports:
+      - "5432:5432"
